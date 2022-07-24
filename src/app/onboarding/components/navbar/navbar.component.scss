@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.mat-toolbar {
+  filter: drop-shadow(0px 5px 10px #0004);
+}

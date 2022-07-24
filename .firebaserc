@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "todo-firebase-340809": {
+      "hosting": {
+        "todo-angular": [
+          "todo-firebase-340809"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "todo-firebase-340809"
+  }
+}

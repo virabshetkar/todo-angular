@@ -1,0 +1,132 @@
+<div class="registration-form-div">
+  <form
+    class="registration-form"
+    (ngSubmit)="submitForm()"
+    [formGroup]="registrationFormGroup"
+  >
+    <h1 class="mat-display-1">Registration Form</h1>
+    <p class="error-text" *ngIf="errorMessage && isSubmitted">
+      {{ errorMessage }}
+    </p>
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input
+        autofocus
+        matInput
+        type="text"
+        placeholder="Your First Name"
+        autocomplete="off"
+        formControlName="firstName"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="firstName.touched && firstName.getError('required')"
+        >First Name is required</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Your Last Name"
+        autocomplete="off"
+        formControlName="lastName"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="lastName.touched && lastName.getError('required')"
+        >Last Name is required</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        type="tel"
+        placeholder="Your Phone Number"
+        autocomplete="off"
+        formControlName="phoneNumber"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="phoneNumber.touched && phoneNumber.getError('required')"
+        >Phone Number is required</mat-hint
+      >
+      <mat-hint
+        class="error-text"
+        *ngIf="phoneNumber.touched && phoneNumber.getError('pattern')"
+        >Phone Number is invaild</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Enter Email (Ex: user@example.com)"
+        autocomplete="off"
+        formControlName="email"
+      />
+
+      <mat-hint
+        class="error-text"
+        *ngIf="email.touched && email.getError('required')"
+        >Email is required</mat-hint
+      >
+      <mat-hint
+        class="error-text"
+        *ngIf="email.touched && email.getError('email')"
+        >Email is invalid</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Enter Password"
+        autocomplete="off"
+        formControlName="password"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="password.touched && password.getError('required')"
+        >Password is required</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Repeat Password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Re-enter Password"
+        autocomplete="off"
+        formControlName="repeatPassword"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="repeatPassword.touched && repeatPassword.getError('required')"
+        >Password is required</mat-hint
+      >
+      <mat-hint
+        class="error-text"
+        *ngIf="
+          repeatPassword.touched &&
+          repeatPassword.getError('confirmedValidator')
+        "
+        >Passwords do not match</mat-hint
+      >
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="registrationFormGroup.invalid"
+    >
+      Submit
+    </button>
+    <div class="loading" *ngIf="isSubmitted && !errorMessage">
+      <mat-spinner class="spinner"></mat-spinner>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,60 @@
+<div class="login-form-div">
+  <form
+    class="login-form"
+    (ngSubmit)="submitForm()"
+    [formGroup]="loginFormGroup"
+  >
+    <h1>Login Form</h1>
+    <p class="error-text" *ngIf="errorMessage && isSubmitted">
+      {{ errorMessage }}
+    </p>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Enter Email (Ex: user@example.com)"
+        autocomplete="off"
+        autofocus
+        formControlName="email"
+      />
+
+      <mat-hint
+        class="error-text"
+        *ngIf="emailControl.touched && emailControl.getError('required')"
+        >Email is required</mat-hint
+      >
+      <mat-hint
+        class="error-text"
+        *ngIf="emailControl.touched && emailControl.getError('email')"
+        >Email is invalid</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Enter Password"
+        autocomplete="off"
+        formControlName="password"
+      />
+      <mat-hint
+        class="error-text"
+        *ngIf="passwordControl.touched && passwordControl.getError('required')"
+        >Password is required</mat-hint
+      >
+    </mat-form-field>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="loginFormGroup.invalid"
+    >
+      Submit
+    </button>
+    <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+  </form>
+  <div class="loading" *ngIf="isSubmitted && !errorMessage">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+</div>

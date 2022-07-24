@@ -1,0 +1,24 @@
+<mat-toolbar color="basic">
+  <div class="container">
+    <div class="title"><h1>Main Application</h1></div>
+    <div class="actions">
+      <button
+        #home="routerLinkActive"
+        mat-flat-button
+        routerLink="/home"
+        routerLinkActive
+        [color]="home.isActive ? 'primary' : ''"
+      >
+        Home</button
+      ><button
+        #login="routerLinkActive"
+        mat-flat-button
+        routerLink="/login"
+        routerLinkActive
+        [color]="login.isActive ? 'primary' : ''"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

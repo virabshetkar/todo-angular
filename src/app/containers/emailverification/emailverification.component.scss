@@ -1,0 +1,22 @@
+.container-main {
+  padding: 5em 0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 3em;
+  background-color: #fff;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 0px 0px 10px hsla(0, 0%, 0%, 0.4);
+  animation: fadeIn 1s linear forwards, slideIn 0.25s linear forwards;
+}
+
+.email {
+  color: #fff;
+  background-color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}

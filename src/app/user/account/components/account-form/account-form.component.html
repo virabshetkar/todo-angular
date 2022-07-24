@@ -1,0 +1,24 @@
+<form (ngSubmit)="submit()" [formGroup]="accountForm" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      placeholder="Your full name"
+      autocomplete="off"
+      autofocus
+      formControlName="displayName"
+    />
+
+    <mat-hint
+      class="error-text"
+      *ngIf="displayName.touched && displayName.getError('required')"
+      >Name is required</mat-hint
+    >
+  </mat-form-field>
+
+  <button mat-raised-button color="basic" (click)="openChangePassword()">
+    Change Password
+  </button>
+
+  <button mat-raised-button color="primary">Submit</button>
+</form>
