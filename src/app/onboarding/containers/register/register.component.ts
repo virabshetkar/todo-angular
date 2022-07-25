@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import { Store } from '@ngrx/store';
-import { RegistrationModel } from '../../../core/models/registration.model';
+import { UserRegistrationModel } from '../../../core/models/registration.model';
 import { registerUser } from '../../../core/store/user/user.actions';
 import { userSelector } from '../../../core/store/user/user.selectors';
 
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  register(user: RegistrationModel) {
+  register(user: UserRegistrationModel) {
     this.store.dispatch(registerUser({ user }));
   }
 }

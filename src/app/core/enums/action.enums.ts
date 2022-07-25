@@ -8,6 +8,7 @@ export enum Status {
 export enum UserAction {
   REGISTER = 'REGISTER',
   LOGIN = 'LOGIN',
+  GOOGLE_LOGIN = 'GOOGLE LOGIN',
   LOGOUT = 'LOGOUT',
 }
 

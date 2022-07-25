@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs';
 import { PasswordChangeDialogComponent } from '../password-change-dialog/password-change-dialog.component';
 
 @Component({
@@ -16,6 +17,9 @@ import { PasswordChangeDialogComponent } from '../password-change-dialog/passwor
 })
 export class AccountFormComponent implements OnInit {
   accountForm: FormGroup;
+  canChangePass$ = this.auth.user.pipe(
+    map((user) => user?.providerData[0]?.providerId === 'password')
+  );
 
   constructor(
     fb: FormBuilder,

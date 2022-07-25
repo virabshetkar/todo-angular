@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import {
+  googleLogin,
   loginEnd,
   loginFailure,
   loginSuccess,
@@ -31,6 +32,22 @@ export class UserEffects {
         this.auth.signInWithEmail(action.credentials).pipe(
           map((user) => {
             if (!user) return loginFailure({ error: 'User Not Found' });
+            return loginSuccess({ user });
+          }),
+          catchError((error) => of(loginFailure({ error })))
+        )
+      )
+    )
+  );
+
+  googleLoginEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(googleLogin),
+      mergeMap(() =>
+        this.auth.signInWithGoogle().pipe(
+          map((user) => {
+            if (!user)
+              return loginFailure({ error: "Couldn't sign into google" });
             return loginSuccess({ user });
           }),
           catchError((error) => of(loginFailure({ error })))

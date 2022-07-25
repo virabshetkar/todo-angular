@@ -13,11 +13,6 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'todo',
-        loadChildren: () =>
-          import('src/app/user/todo/todo.module').then((m) => m.TodoModule),
-      },
-      {
         path: 'account',
         loadChildren: () =>
           import('src/app/user/account/account.module').then(

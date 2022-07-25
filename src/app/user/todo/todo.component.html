@@ -1,9 +1,0 @@
-<mat-sidenav-container [hasBackdrop]="false">
-  <mat-sidenav #sidenav [fixedInViewport]="true"
-    ><app-sidenav (close)="sidenav.close()"></app-sidenav
-  ></mat-sidenav>
-  <mat-sidenav-content>
-    <app-navbar (open)="sidenav.open()"></app-navbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>

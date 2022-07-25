@@ -17,7 +17,7 @@ const redirectUnauthorizedOrUnverified: AuthPipeGenerator = () =>
     } else return ['login'];
   });
 
-const redirectAuthorized = () => redirectLoggedInTo(['user', 'todo']);
+const redirectAuthorized = () => redirectLoggedInTo(['user']);
 
 const routes: Routes = [
   {

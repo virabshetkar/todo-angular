@@ -16,7 +16,7 @@
     >
   </mat-form-field>
 
-  <button mat-raised-button color="basic" (click)="openChangePassword()">
+  <button mat-raised-button color="basic" *ngIf="canChangePass$ | async" (click)="openChangePassword()">
     Change Password
   </button>
 

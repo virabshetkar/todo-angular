@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RegistrationModel } from '../../../core/models/registration.model';
+import { UserRegistrationModel } from '../../../core/models/registration.model';
 import { SameValueValidator } from '../../../core/validators/same-value.validator';
 
 @Component({
@@ -16,7 +16,7 @@ import { SameValueValidator } from '../../../core/validators/same-value.validato
 export class RegistrationFormComponent implements OnInit {
   registrationFormGroup: FormGroup;
 
-  @Output() registerUser = new EventEmitter<RegistrationModel>();
+  @Output() registerUser = new EventEmitter<UserRegistrationModel>();
   @Input() errorMessage?: string;
 
   isSubmitted?: boolean;
