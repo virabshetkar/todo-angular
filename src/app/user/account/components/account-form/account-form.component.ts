@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs';
+import { first, map } from 'rxjs';
 import { PasswordChangeDialogComponent } from '../password-change-dialog/password-change-dialog.component';
 
 @Component({
@@ -36,7 +36,7 @@ export class AccountFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.user.subscribe((user) => {
+    this.auth.user.pipe(first()).subscribe((user) => {
       this.accountForm.patchValue({ displayName: user?.displayName });
     });
   }

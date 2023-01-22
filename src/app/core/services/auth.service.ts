@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { catchError, filter, finalize, from, map, mergeMap, of } from 'rxjs';
+import { first, from, map, mergeMap, switchMap } from 'rxjs';
 import { CredentialModel } from '../models/credentials.model';
 import { FirestoreCollections } from '../enums/firestore-collections.enum';
 import { UserRegistrationModel } from '../models/registration.model';
 import { UserModel } from '../models/user.model';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { EmailAuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -70,10 +70,12 @@ export class AuthService {
     ).pipe(
       mergeMap((creds) => {
         if (!creds.user) throw new Error('Unable to create user.');
-        creds.user.sendEmailVerification();
-        creds.user.updateProfile({
-          displayName: `${user.firstName} ${user.lastName}`,
-        });
+        creds.user
+          .updateProfile({
+            displayName: `${user.firstName} ${user.lastName}`,
+          })
+          .then(() => creds.user!.sendEmailVerification());
+
         return this.afs
           .collection(FirestoreCollections.USER)
           .doc(creds.user.uid)
@@ -87,7 +89,24 @@ export class AuthService {
     );
   }
 
-  changePassword() {}
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.auth.user.pipe(
+      first(),
+      switchMap((user) => {
+        if (!user) throw new Error('No User Found');
+        if (!user.email) throw new Error('No Email Found');
+        const credential = EmailAuthProvider.credential(
+          user.email,
+          oldPassword
+        );
+        return user.reauthenticateWithCredential(credential);
+      }),
+      map((creds) => {
+        if (!creds.user) throw new Error('No User Found');
+        creds.user.updatePassword(newPassword);
+      })
+    );
+  }
 
   signOut() {
     return from(this.auth.signOut());

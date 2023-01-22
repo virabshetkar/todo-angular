@@ -112,7 +112,7 @@
         class="error-text"
         *ngIf="
           repeatPassword.touched &&
-          repeatPassword.getError('confirmedValidator')
+          repeatPassword.getError('sameValueValidator')
         "
         >Passwords do not match</mat-hint
       >

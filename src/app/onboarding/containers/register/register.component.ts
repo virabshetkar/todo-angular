@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { UserRegistrationModel } from '../../../core/models/registration.model';
 import { registerUser } from '../../../core/store/user/user.actions';
 import { userSelector } from '../../../core/store/user/user.selectors';
+import { FirebaseErrorHandlerService } from '../../services/firebase-error-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -14,23 +15,14 @@ export class RegisterComponent implements OnInit {
   user$ = this.store.select(userSelector);
   errorMessage?: string;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private errorHandler: FirebaseErrorHandlerService
+  ) {}
 
   ngOnInit(): void {
     this.user$.subscribe((user) => {
-      if (user.error) {
-        if (user.error instanceof FirebaseError) {
-          if (user.error.code === 'auth/user-not-found') {
-            this.errorMessage = 'Email not registered';
-          } else if (user.error.code === 'auth/wrong-password') {
-            this.errorMessage = 'Password is incorrect';
-          } else if (user.error.code === 'auth/too-many-requests') {
-            this.errorMessage = 'User has many failed login attempts';
-          } else if (user.error.code === 'auth/email-already-in-use') {
-            this.errorMessage = 'Email is already registered';
-          }
-        }
-      } else this.errorMessage = undefined;
+      this.errorMessage = this.errorHandler.getErrorMessage(user.error);
     });
   }
 

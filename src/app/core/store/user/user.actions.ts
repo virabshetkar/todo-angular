@@ -4,6 +4,8 @@ import { CredentialModel } from '../../models/credentials.model';
 import { UserRegistrationModel } from '../../models/registration.model';
 import { UserModel } from '../../models/user.model';
 
+//#region Register
+
 export const registerUser = createAction(
   userAction(UserAction.REGISTER, Status.START),
   props<{ user: UserRegistrationModel }>()
@@ -19,6 +21,9 @@ export const registerFailure = createAction(
   props<{ error: any }>()
 );
 
+//#endregion
+
+//#region Login
 export const loginUser = createAction(
   userAction(UserAction.LOGIN, Status.START),
   props<{ credentials: CredentialModel }>()
@@ -39,3 +44,26 @@ export const googleLogin = createAction(
 );
 
 export const loginEnd = createAction(userAction(UserAction.LOGIN, Status.END));
+//#endregion
+
+//#region Change Password
+
+export const changePassword = createAction(
+  userAction(UserAction.CHANGE_PASSWORD, Status.START),
+  props<{ oldPassword: string; newPassword: string }>()
+);
+
+export const changePasswordSuccess = createAction(
+  userAction(UserAction.CHANGE_PASSWORD, Status.SUCCESS)
+);
+
+export const changePasswordFailure = createAction(
+  userAction(UserAction.CHANGE_PASSWORD, Status.FAILURE),
+  props<{ error: any }>()
+);
+
+export const changePasswordEnd = createAction(
+  userAction(UserAction.CHANGE_PASSWORD, Status.END)
+);
+
+//#endregion

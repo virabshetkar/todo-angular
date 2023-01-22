@@ -3,6 +3,10 @@ import { State } from '../../models/state.model';
 import { StoreCollection } from '../../enums/store-collections.enum';
 import { UserModel } from '../../models/user.model';
 import {
+  changePassword,
+  changePasswordEnd,
+  changePasswordFailure,
+  changePasswordSuccess,
   loginFailure,
   loginSuccess,
   loginUser,
@@ -20,9 +24,13 @@ const initialState: State<UserModel> = {
 
 export const userReducer = createReducer(
   initialState,
+
+  //#region Login
+
   on(loginUser, () => {
     return { data: null, error: null, isLoading: true, isLoaded: false };
   }),
+
   on(loginFailure, (_, action) => {
     return {
       error: action.error,
@@ -31,6 +39,7 @@ export const userReducer = createReducer(
       isLoaded: true,
     };
   }),
+
   on(loginSuccess, (_, action) => {
     return {
       data: action.user,
@@ -39,12 +48,19 @@ export const userReducer = createReducer(
       isLoaded: true,
     };
   }),
+
+  //#endregion
+
+  //#region Register
+
   on(registerUser, (state, _) => {
     return { data: null, error: null, isLoading: true, isLoaded: false };
   }),
+
   on(registerSuccess, (state, _) => {
     return { ...state, isLoading: false };
   }),
+
   on(registerFailure, (state, action) => {
     return {
       error: action.error,
@@ -52,7 +68,29 @@ export const userReducer = createReducer(
       isLoading: false,
       isLoaded: true,
     };
+  }),
+
+  //#endregion
+
+  //#region Change Password
+
+  on(changePassword, (state, _) => {
+    return { ...state, isLoading: true };
+  }),
+
+  on(changePasswordSuccess, (state, _) => {
+    return { ...state, isLoading: false };
+  }),
+
+  on(changePasswordFailure, (state, { error }) => {
+    return { ...state, error, isLoading: false };
+  }),
+
+  on(changePasswordEnd, (state, _) => {
+    return { ...state, error: null };
   })
+
+  //#endregion
 );
 
 export const userFeature = createFeature({

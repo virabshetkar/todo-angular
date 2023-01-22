@@ -2,6 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
+    "analytics": "2f478ccc-f176-461b-8313-b323d8e04174",
     "packageManager": "yarn"
   },
   "newProjectRoot": "projects",
@@ -143,6 +144,5 @@
         }
       }
     }
-  },
-  "defaultProject": "todo-angular"
+  }
 }

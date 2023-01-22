@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PasswordChangeDialogComponent } from './components/password-change-dialog/password-change-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const MaterialImports = [
   MatButtonModule,
@@ -18,6 +20,8 @@ const MaterialImports = [
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import {
+  changePassword,
+  changePasswordEnd,
+  changePasswordFailure,
+  changePasswordSuccess,
   googleLogin,
   loginEnd,
   loginFailure,
@@ -14,7 +18,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FirebaseError } from '@angular/fire/app';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class UserEffects {
@@ -22,8 +26,11 @@ export class UserEffects {
     private actions$: Actions,
     private auth: AuthService,
     private router: Router,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
+
+  //#region Login
 
   loginEffect$ = createEffect(() =>
     this.actions$.pipe(
@@ -70,21 +77,16 @@ export class UserEffects {
     { dispatch: false }
   );
 
-  loginFailureEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loginFailure),
-      exhaustMap(({ error }) => {
-        return of(loginEnd());
-      })
-    )
-  );
+  //#endregion
+
+  //#region Register
 
   registerEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(registerUser),
       mergeMap((action) =>
         this.auth.registerUser(action.user).pipe(
-          mergeMap(() => of(registerSuccess({ error: null }))),
+          map(() => registerSuccess({ error: null })),
           catchError((error) => of(registerFailure({ error })))
         )
       )
@@ -105,25 +107,34 @@ export class UserEffects {
     { dispatch: false }
   );
 
-  registerFailure$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(registerFailure),
-        tap((error) => {})
-      ),
-    { dispatch: false }
+  //#endregion
+
+  //#region Change Password
+
+  changePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(changePassword),
+      mergeMap(({ oldPassword, newPassword }) =>
+        this.auth.changePassword(oldPassword, newPassword).pipe(
+          map(() => changePasswordSuccess()),
+          catchError((error) => of(changePasswordFailure({ error })))
+        )
+      )
+    )
   );
 
-  private getErrorMessage(error: any) {
-    if (error instanceof FirebaseError) {
-      if (error.code === 'auth/user-not-found') {
-        return 'Email not registered';
-      } else if (error.code === 'auth/wrong-password') {
-        return 'Password is incorrect';
-      } else if (error.code === 'auth/too-many-requests') {
-        return 'User has many failed login attempts';
-      }
-    }
-    return 'Something went seriously wrong';
-  }
+  changePasswordSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(changePasswordSuccess),
+      map(() => {
+        this.dialog.closeAll();
+        this.snackbar.open('Password Change Successful', undefined, {
+          duration: 2000,
+        });
+        return changePasswordEnd();
+      })
+    )
+  );
+
+  //#endregion
 }

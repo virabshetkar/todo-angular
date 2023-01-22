@@ -12,6 +12,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
       logOnly: environment.production,
     }),
     MatSnackBarModule,
+    MatDialogModule,
   ],
 })
 export class CoreModule {}

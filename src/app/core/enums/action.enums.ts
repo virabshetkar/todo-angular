@@ -10,6 +10,7 @@ export enum UserAction {
   LOGIN = 'LOGIN',
   GOOGLE_LOGIN = 'GOOGLE LOGIN',
   LOGOUT = 'LOGOUT',
+  CHANGE_PASSWORD = 'CHANGE PASSWORD'
 }
 
 export type UserActions = `[USER] ${UserAction} ${Status}`;

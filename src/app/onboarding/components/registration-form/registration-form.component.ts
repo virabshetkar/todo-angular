@@ -33,7 +33,7 @@ export class RegistrationFormComponent implements OnInit {
         ]),
         password: fb.control('', [
           Validators.required,
-          Validators.minLength(5),
+          Validators.minLength(6),
         ]),
         repeatPassword: fb.control('', [Validators.required]),
       },
