@@ -6,3 +6,34 @@
   border-radius: 10px;
   animation: slideLeft 0.5s ease forwards;
 }
+
+.google-button {
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  outline: none;
+  height: 40px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  & > .image-container {
+    height: 38px;
+    aspect-ratio: 1 / 1;
+    background-image: url("^assets/google_logo.svg.webp");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border: 1px solid #4285f4;
+    border-radius: 2px;
+  }
+
+  & > p {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+    flex-grow: 1;
+  }
+  display: flex;
+  align-items: center;
+  padding: 0;
+}

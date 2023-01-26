@@ -29,6 +29,7 @@ export class AccountFormComponent implements OnInit {
     this.accountForm = fb.group({
       displayName: fb.control('', [Validators.required]),
     });
+    this.displayName.disable();
   }
 
   get displayName() {

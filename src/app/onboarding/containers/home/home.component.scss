@@ -23,7 +23,7 @@
   flex-shrink: 1;
   flex-grow: 0;
   padding: 5rem 3rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background-color: #fff;
   transition: transform 0.2s linear, opacity 0.2s linear;
   filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
@@ -41,7 +41,7 @@
 
 .project-highlight {
   display: inline-block;
-  background-color: #222;
+  background-color: #000;
   color: limegreen;
   font-family: consolas;
   padding: 1rem;

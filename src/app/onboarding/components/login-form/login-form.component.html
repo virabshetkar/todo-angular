@@ -52,7 +52,10 @@
     >
       Submit
     </button>
-    <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+    <p>
+      Don't have an account?
+      <a routerLink="/register" class="register-now">Register now</a>
+    </p>
   </form>
   <div class="loading" *ngIf="isSubmitted && !errorMessage">
     <mat-spinner class="spinner"></mat-spinner>
